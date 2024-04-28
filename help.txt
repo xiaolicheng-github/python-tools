@@ -1,0 +1,15 @@
+产生安装列表
+python -m pip freeze > requirements.txt
+安装依赖
+python -m pip install -r requirements.txt
+打包
+pyinstaller main.py
+(
+  -D 创建包含一个可执行文件的单文件夹捆绑包
+  -F 创建单文件捆绑的可执行文件
+)
+根据spec文件打包
+pyinstaller main.spec
+
+
+
