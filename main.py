@@ -4,16 +4,15 @@ from PyQt5.QtWidgets import (
     QApplication,
     QMainWindow,
     QVBoxLayout,
-    QPushButton,
     QWidget,
-    QGridLayout,
-    QTextEdit,
     QToolBar,
     QAction,
 )
-from PyQt5.QtGui import QColor, QIcon
+from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 from utils.path import get_path
+from pages.home import HomePage
+from pages.chat import PageChat
 
 
 # 主窗口类
@@ -83,56 +82,6 @@ class MainWindow(QMainWindow):
                     self.removeToolBar(self.toolbar)
             else:
                 page["page"].hide()
-
-
-# 主页类
-class HomePage(QWidget):
-    # 定义按钮列表
-    gridUIs = [
-        {"position": (0, 0, 150, 100), "name": "局域网聊天", "id": "chat"},
-        {"position": (0, 1, 150, 100), "name": "button2", "id": "button2"},
-        {"position": (0, 2, 150, 100), "name": "button3", "id": "button3"},
-        {"position": (1, 0, 150, 100), "name": "button4", "id": "button4"},
-    ]
-
-    # 初始化方法
-    def __init__(self):
-        super().__init__()
-        layoutHome = QVBoxLayout()
-        grid = QGridLayout()
-        gridWidget = QWidget()
-        for gridUIItem in self.gridUIs:
-            button = QPushButton(gridUIItem["name"])
-            if gridUIItem["id"] == "chat":
-                button.clicked.connect(lambda: self.goToChatPage())
-            button.setFixedSize(*gridUIItem["position"][2:4])
-            grid.addWidget(button, *gridUIItem["position"][0:2])
-        gridWidget.setLayout(grid)
-        layoutHome.addWidget(gridWidget)
-        self.setLayout(layoutHome)
-
-    # 转到聊天页面方法
-    def goToChatPage(self):
-        self.window().showPage("chat")
-
-
-# 聊天页面类
-class PageChat(QWidget):
-    # 初始化方法
-    def __init__(self):
-        super().__init__()
-        layoutChat = QVBoxLayout()
-        output_panel = QTextEdit()
-        output_panel.setFixedSize(800, 400)  # 设置输出面板大小
-        output_panel.setTextColor(QColor("white"))  # 设置文本颜色为白色
-        output_panel.setStyleSheet("background-color: black")  # 设置背景颜色为黑色
-        output_panel.setReadOnly(True)
-        layoutChat.addWidget(output_panel)
-        self.setLayout(layoutChat)
-
-    # 返回主页方法
-    def goBackHome(self):
-        self.window().showPage("home")
 
 
 # 应用程序入口
