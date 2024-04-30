@@ -1,6 +1,8 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QWidget, QGridLayout, QTextEdit, QScrollArea
-from PyQt5.QtGui import QColor
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QWidget, QGridLayout, QTextEdit, QToolBar, QAction
+from PyQt5.QtGui import QColor, QIcon
+from PyQt5.QtCore import Qt
+from utils.path import get_path
 
 class MainWindow(QMainWindow):
     pages = [
@@ -24,22 +26,50 @@ class MainWindow(QMainWindow):
         self.layout = QVBoxLayout()
         self.container.setLayout(self.layout)
 
+        # 工具栏
+        self.toolbar = QToolBar()
 
+        # 定义页面
         self.pagesSet('home', HomePage())
         self.pagesSet('chat', PageChat())
 
         self.showPage('home')
 
+    # 页面实例
     def pagesSet(self, pageId, pageInstance):
         for page in self.pages:
             if page['id'] == pageId:
                 page['page'] = pageInstance
                 self.layout.addWidget(pageInstance)
-        
+
+    # 切换页面 
     def showPage(self, pageId):
         for page in self.pages:
             if page['id'] == pageId:
                 page['page'].show()
+                self.backContainer(pageId)
+            else:
+                page['page'].hide()
+    # 返回区域
+    def backContainer(self, pageId):
+        # 返回按钮
+        if(pageId == 'home'):
+            self.removeToolBar(self.toolbar)
+        else:
+            self.toolbar = QToolBar()
+            self.toolbar.setMovable(False)
+            self.addToolBar(self.toolbar)
+            self.backAction = QAction(QIcon(get_path('./static/back.png')), '返回', self)
+            self.backAction.triggered.connect(lambda: self.goBack('home'))
+            self.toolbar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+            self.toolbar.addAction(self.backAction)
+    # 返回事件
+    def goBack(self, pageId):
+        for page in self.pages:
+            if page['id'] == pageId:
+                page['page'].show()
+                if(pageId == 'home'):
+                   self.removeToolBar(self.toolbar) 
             else:
                 page['page'].hide()
 
