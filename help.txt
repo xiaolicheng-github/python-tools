@@ -11,5 +11,15 @@ pyinstaller main.py
 根据spec文件打包
 pyinstaller main.spec
 
+pip 命令大全
+pip install package-name
+pip install package-name==version
+pip uninstall package_name
+
+根据项目生成依赖包清单
+pipreqs .
+pipreqs --force .
+
+
 
 
