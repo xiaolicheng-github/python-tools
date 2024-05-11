@@ -1,7 +1,9 @@
 # 导入所需的模块
 import sys
-sys.path.insert(0, sys.path[0]+"/../")
+
+sys.path.insert(0, sys.path[0] + "/../")
 from utils.server import get_ipv4_address
+from utils.layout import cteate_layout
 from PyQt5.QtWidgets import (
     QVBoxLayout,
     QHBoxLayout,
@@ -9,7 +11,7 @@ from PyQt5.QtWidgets import (
     QTextEdit,
     QLabel,
     QLineEdit,
-    QPushButton
+    QPushButton,
 )
 from PyQt5.QtGui import QColor
 from PyQt5.QtCore import Qt
@@ -25,24 +27,14 @@ class PageChat(QWidget):
         iplabel = QLabel("当前ip地址: " + get_ipv4_address())
         iplabel.setTextInteractionFlags(Qt.TextSelectableByMouse)
         infoConfirmBtn = QPushButton("确认下方信息")
-        infoConfirmBtn.setStyleSheet('margin-left: 20px; height: 30px; width: 100px;')
-        iplabelHbox = QHBoxLayout()
-        iplabelHbox.addWidget(iplabel)
-        iplabelHbox.addWidget(infoConfirmBtn)
-        iplabelHbox.addStretch(1)
-        iplabelQW = QWidget()
-        iplabelQW.setLayout(iplabelHbox)
+        infoConfirmBtn.setStyleSheet("margin-left: 20px; height: 30px; width: 100px;")
+        iplabelQW = cteate_layout("h", iplabel, infoConfirmBtn, 1)
         # 昵称输入框
         nameInput = QLineEdit()
         nameInput.setFixedWidth(400)
         nameInputLabel = QLabel("昵称: ")
         nameInputLabel.setFixedWidth(100)
-        nameInputHbox = QHBoxLayout()
-        nameInputHbox.addWidget(nameInputLabel)
-        nameInputHbox.addWidget(nameInput)
-        nameInputHbox.addStretch(1)
-        nameInputQW = QWidget()
-        nameInputQW.setLayout(nameInputHbox)
+        nameInputQW = cteate_layout("h", nameInputLabel, nameInput, 1)
         # 目标服务器ip地址输入框
         serverIpInput = QLineEdit()
         serverIpInput.setFixedWidth(400)

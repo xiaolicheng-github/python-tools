@@ -21,5 +21,9 @@ pipreqs .
 pipreqs --force .
 
 
+示例
+https://github.com/Cookie0101/LAN-ChatRoom/blob/master/%E6%BA%90%E4%BB%A3%E7%A0%81/%E5%AE%A2%E6%88%B7%E7%AB%AF.py
+
+
 
 
